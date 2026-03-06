@@ -1,0 +1,47 @@
+{
+  "name": "naosu",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "dev:native": "turbo -F native dev",
+    "dev:web": "turbo -F web dev",
+    "dev:server": "turbo -F server dev",
+    "db:push": "turbo -F @naosu/db db:push",
+    "db:studio": "turbo -F @naosu/db db:studio",
+    "db:generate": "turbo -F @naosu/db db:generate",
+    "db:migrate": "turbo -F @naosu/db db:migrate",
+    "db:start": "turbo -F @naosu/db db:start",
+    "db:watch": "turbo -F @naosu/db db:watch",
+    "db:stop": "turbo -F @naosu/db db:stop",
+    "db:down": "turbo -F @naosu/db db:down",
+    "check": "biome check --write .",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@naosu/env": "workspace:*",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.0",
+    "@naosu/config": "workspace:*",
+    "@types/node": "catalog:",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "turbo": "^2.8.12",
+    "typescript": "catalog:"
+  },
+  "lint-staged": {
+    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
+      "biome check --write ."
+    ]
+  },
+  "packageManager": "pnpm@10.18.3"
+}

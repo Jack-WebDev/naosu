@@ -1,0 +1,3 @@
+{
+  "extends": "@naosu/config/tsconfig.base.json"
+}
