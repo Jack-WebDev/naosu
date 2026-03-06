@@ -1,6 +1,7 @@
 {
 	"name": "@naosu/auth",
 	"type": "module",
+	"private": true,
 	"exports": {
 		".": {
 			"default": "./src/index.ts"

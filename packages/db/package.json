@@ -1,6 +1,7 @@
 {
 	"name": "@naosu/db",
 	"type": "module",
+	"private": true,
 	"exports": {
 		".": {
 			"default": "./src/index.ts"
