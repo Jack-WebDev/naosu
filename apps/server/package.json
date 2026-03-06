@@ -1,32 +1,38 @@
 {
-  "name": "server",
-  "type": "module",
-  "main": "src/index.ts",
-  "scripts": {
-    "build": "tsdown",
-    "check-types": "tsc -b",
-    "compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
-    "dev": "tsx watch src/index.ts",
-    "start": "node dist/index.mjs"
-  },
-  "dependencies": {
-    "@fastify/cors": "^11.0.1",
-    "@hono/trpc-server": "^0.4.0",
-    "@naosu/api": "workspace:*",
-    "@naosu/auth": "workspace:*",
-    "@naosu/db": "workspace:*",
-    "@naosu/env": "workspace:*",
-    "@trpc/server": "catalog:",
-    "better-auth": "catalog:",
-    "dotenv": "catalog:",
-    "fastify": "^5.3.3",
-    "zod": "catalog:"
-  },
-  "devDependencies": {
-    "@naosu/config": "workspace:*",
-    "@types/node": "catalog:",
-    "tsdown": "^0.16.5",
-    "tsx": "^4.19.2",
-    "typescript": "catalog:"
-  }
+	"name": "server",
+	"type": "module",
+	"main": "src/index.ts",
+	"scripts": {
+		"build": "tsdown",
+		"lint": "biome check --write .",
+		"check-types": "tsc -b",
+		"compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
+		"dev": "tsx watch src/index.ts",
+		"start": "node dist/index.mjs"
+	},
+	"dependencies": {
+		"@fastify/circuit-breaker": "^4.0.2",
+		"@fastify/compress": "^8.3.1",
+		"@fastify/cors": "^11.0.1",
+		"@fastify/csrf-protection": "^7.1.0",
+		"@fastify/helmet": "^13.0.2",
+		"@fastify/rate-limit": "^10.3.0",
+		"@hono/trpc-server": "^0.4.0",
+		"@naosu/api": "workspace:*",
+		"@naosu/auth": "workspace:*",
+		"@naosu/db": "workspace:*",
+		"@naosu/env": "workspace:*",
+		"@trpc/server": "catalog:",
+		"better-auth": "catalog:",
+		"dotenv": "catalog:",
+		"fastify": "^5.3.3",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@naosu/config": "workspace:*",
+		"@types/node": "catalog:",
+		"tsdown": "^0.16.5",
+		"tsx": "^4.19.2",
+		"typescript": "catalog:"
+	}
 }
