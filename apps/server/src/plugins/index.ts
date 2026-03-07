@@ -2,7 +2,6 @@ import fastifyCircuitBreaker from "@fastify/circuit-breaker";
 import fastifyCompress from "@fastify/compress";
 import fastifyCors from "@fastify/cors";
 
-import fastifyCsrf from "@fastify/csrf-protection";
 import fastifyHelmet from "@fastify/helmet";
 import fastifyRateLimit from "@fastify/rate-limit";
 import { createContext } from "@naosu/api/context";
@@ -39,8 +38,6 @@ export async function registerPlugins(app: FastifyInstance) {
 			retryAfter: context.after,
 		}),
 	});
-
-	await app.register(fastifyCsrf);
 
 	// --- Performance ---
 
