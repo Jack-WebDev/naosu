@@ -43,7 +43,10 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 function RootComponent() {
 	const isAuthRoute = useMatches({
 		select(matches) {
-			return matches.some((match) => match.pathname.startsWith("/auth"));
+			return matches.some(
+				(match) =>
+					match.pathname.startsWith("/auth/") || match.pathname === "/auth",
+			);
 		},
 	});
 
@@ -59,7 +62,7 @@ function RootComponent() {
 				{isAuthRoute ? (
 					<Outlet />
 				) : (
-					<div className="grid h-svh grid-rows-[auto_1fr]">
+					<div className="h-svh">
 						<Outlet />
 					</div>
 				)}

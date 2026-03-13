@@ -6,14 +6,13 @@ import {
 	Footer,
 	HeroSection,
 	HowItWorks,
-	Testimonials,
 } from "@/features/home";
 
 export const Route = createFileRoute("/")({
 	component: HomeComponent,
 });
 
-export function HomeComponent() {
+function HomeComponent() {
 	return (
 		<div className="h-full overflow-y-auto bg-background">
 			<HeroSection />
@@ -22,7 +21,7 @@ export function HomeComponent() {
 
 			<HowItWorks />
 
-			<Testimonials />
+			{/* <Testimonials /> */}
 
 			<CTA />
 

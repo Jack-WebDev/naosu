@@ -1,1 +1,8 @@
-export { FEATURES, STATS, STEPS, TESTIMONIALS, TICKETS } from "./constants";
+export {
+	CTAInfo,
+	FEATURES,
+	STATS,
+	STEPS,
+	TESTIMONIALS,
+	TICKETS,
+} from "./constants";

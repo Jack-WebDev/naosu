@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: naosu
       POSTGRES_PASSWORD: naosu
     ports:
-      - "5433:5432"
+      - "127.0.0.1:5433:5432"
     volumes:
       - naosu_postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -24,7 +24,7 @@ services:
     container_name: naosu-redis
     command: ["redis-server", "--appendonly", "yes"]
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
     volumes:
       - naosu_redis_data:/data
     restart: unless-stopped
@@ -33,8 +33,8 @@ services:
     image: axllent/mailpit:latest
     container_name: naosu-mailpit
     ports:
-      - "8025:8025"   # Web UI
-      - "1025:1025"   # SMTP
+      - "127.0.0.1:8025:8025"   # Web UI
+      - "127.0.0.1:1025:1025"   # SMTP
     restart: unless-stopped
 
 volumes:

@@ -128,3 +128,9 @@ export const TESTIMONIALS = [
 		initials: "PL",
 	},
 ];
+
+export const CTAInfo = [
+	"Set up in under 10 minutes",
+	"No engineering required",
+	"Cancel or downgrade any time",
+];

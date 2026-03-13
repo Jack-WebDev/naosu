@@ -1,5 +1,5 @@
 {
-	"id": "d554b1e6-8caa-4c99-832f-35d1a589efb9",
+	"id": "c340e19f-e920-42de-bcb9-3418b65307ff",
 	"prevId": "00000000-0000-0000-0000-000000000000",
 	"version": "7",
 	"dialect": "postgresql",
@@ -52,13 +52,13 @@
 				},
 				"access_token_expires_at": {
 					"name": "access_token_expires_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
 					"notNull": false
 				},
 				"refresh_token_expires_at": {
 					"name": "refresh_token_expires_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
 					"notNull": false
 				},
@@ -76,16 +76,17 @@
 				},
 				"created_at": {
 					"name": "created_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
 					"notNull": true,
 					"default": "now()"
 				},
 				"updated_at": {
 					"name": "updated_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
-					"notNull": true
+					"notNull": true,
+					"default": "now()"
 				}
 			},
 			"indexes": {
@@ -100,6 +101,27 @@
 						}
 					],
 					"isUnique": false,
+					"concurrently": false,
+					"method": "btree",
+					"with": {}
+				},
+				"account_provider_account_idx": {
+					"name": "account_provider_account_idx",
+					"columns": [
+						{
+							"expression": "provider_id",
+							"isExpression": false,
+							"asc": true,
+							"nulls": "last"
+						},
+						{
+							"expression": "account_id",
+							"isExpression": false,
+							"asc": true,
+							"nulls": "last"
+						}
+					],
+					"isUnique": true,
 					"concurrently": false,
 					"method": "btree",
 					"with": {}
@@ -134,7 +156,7 @@
 				},
 				"expires_at": {
 					"name": "expires_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
 					"notNull": true
 				},
@@ -146,16 +168,17 @@
 				},
 				"created_at": {
 					"name": "created_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
 					"notNull": true,
 					"default": "now()"
 				},
 				"updated_at": {
 					"name": "updated_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
-					"notNull": true
+					"notNull": true,
+					"default": "now()"
 				},
 				"ip_address": {
 					"name": "ip_address",
@@ -253,14 +276,14 @@
 				},
 				"created_at": {
 					"name": "created_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
 					"notNull": true,
 					"default": "now()"
 				},
 				"updated_at": {
 					"name": "updated_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
 					"notNull": true,
 					"default": "now()"
@@ -304,20 +327,20 @@
 				},
 				"expires_at": {
 					"name": "expires_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
 					"notNull": true
 				},
 				"created_at": {
 					"name": "created_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
 					"notNull": true,
 					"default": "now()"
 				},
 				"updated_at": {
 					"name": "updated_at",
-					"type": "timestamp",
+					"type": "timestamp with time zone",
 					"primaryKey": false,
 					"notNull": true,
 					"default": "now()"
@@ -329,6 +352,21 @@
 					"columns": [
 						{
 							"expression": "identifier",
+							"isExpression": false,
+							"asc": true,
+							"nulls": "last"
+						}
+					],
+					"isUnique": false,
+					"concurrently": false,
+					"method": "btree",
+					"with": {}
+				},
+				"verification_value_idx": {
+					"name": "verification_value_idx",
+					"columns": [
+						{
+							"expression": "value",
 							"isExpression": false,
 							"asc": true,
 							"nulls": "last"

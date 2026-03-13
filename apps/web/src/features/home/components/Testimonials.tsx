@@ -1,6 +1,10 @@
+import { useId } from "react";
+
 import { TESTIMONIALS } from "../utils";
 
 export function Testimonials() {
+	const testimonialId = useId();
+
 	return (
 		<section className="testimonials-section">
 			<div className="mx-auto max-w-5xl">
@@ -13,7 +17,7 @@ export function Testimonials() {
 
 				<div className="testimonials-grid">
 					{TESTIMONIALS.map((t) => (
-						<div key={t.author} className="testimonial-card">
+						<div key={testimonialId} className="testimonial-card">
 							<div className="testimonial-stars">
 								{[1, 2, 3, 4, 5].map((n) => (
 									<svg

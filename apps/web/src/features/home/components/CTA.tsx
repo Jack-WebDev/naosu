@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, CheckIcon, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CTAInfo } from "../utils";
 
 export function CTA() {
 	return (
@@ -21,15 +22,11 @@ export function CTA() {
 				</h2>
 
 				<p className="cta-sub">
-					Join 50,000+ teams already delivering exceptional support with Naosu.
+					Join teams already delivering exceptional support with Naosu.
 				</p>
 
 				<ul className="cta-checklist">
-					{[
-						"Set up in under 10 minutes",
-						"No engineering required",
-						"Cancel or downgrade any time",
-					].map((item) => (
+					{CTAInfo.map((item) => (
 						<li key={item} className="cta-check-item">
 							<span className="cta-check-icon">
 								<CheckIcon className="h-3 w-3" />

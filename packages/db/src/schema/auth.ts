@@ -1,5 +1,12 @@
 import { relations } from "drizzle-orm";
-import { boolean, index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import {
+	boolean,
+	index,
+	pgTable,
+	text,
+	timestamp,
+	uniqueIndex,
+} from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
 	id: text("id").primaryKey(),
@@ -29,6 +36,7 @@ export const session = pgTable(
 			.defaultNow()
 			.notNull(),
 		updatedAt: timestamp("updated_at", { mode: "date", withTimezone: true })
+			.defaultNow()
 			.$onUpdate(() => new Date())
 			.notNull(),
 		ipAddress: text("ip_address"),
@@ -66,10 +74,17 @@ export const account = pgTable(
 			.defaultNow()
 			.notNull(),
 		updatedAt: timestamp("updated_at", { mode: "date", withTimezone: true })
+			.defaultNow()
 			.$onUpdate(() => new Date())
 			.notNull(),
 	},
-	(table) => [index("account_userId_idx").on(table.userId)],
+	(table) => [
+		index("account_userId_idx").on(table.userId),
+		uniqueIndex("account_provider_account_idx").on(
+			table.providerId,
+			table.accountId,
+		),
+	],
 );
 
 export const verification = pgTable(
@@ -78,14 +93,22 @@ export const verification = pgTable(
 		id: text("id").primaryKey(),
 		identifier: text("identifier").notNull(),
 		value: text("value").notNull(),
-		expiresAt: timestamp("expires_at").notNull(),
-		createdAt: timestamp("created_at").defaultNow().notNull(),
-		updatedAt: timestamp("updated_at")
+		expiresAt: timestamp("expires_at", {
+			mode: "date",
+			withTimezone: true,
+		}).notNull(),
+		createdAt: timestamp("created_at", { mode: "date", withTimezone: true })
+			.defaultNow()
+			.notNull(),
+		updatedAt: timestamp("updated_at", { mode: "date", withTimezone: true })
 			.defaultNow()
 			.$onUpdate(() => new Date())
 			.notNull(),
 	},
-	(table) => [index("verification_identifier_idx").on(table.identifier)],
+	(table) => [
+		index("verification_identifier_idx").on(table.identifier),
+		index("verification_value_idx").on(table.value),
+	],
 );
 
 export const userRelations = relations(user, ({ many }) => ({
