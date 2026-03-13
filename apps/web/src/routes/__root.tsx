@@ -5,9 +5,9 @@ import {
 	createRootRouteWithContext,
 	HeadContent,
 	Outlet,
+	useMatches,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import Header from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import type { trpc } from "@/utils/trpc";
@@ -41,6 +41,12 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 });
 
 function RootComponent() {
+	const isAuthRoute = useMatches({
+		select(matches) {
+			return matches.some((match) => match.pathname.startsWith("/auth"));
+		},
+	});
+
 	return (
 		<>
 			<HeadContent />
@@ -50,11 +56,20 @@ function RootComponent() {
 				disableTransitionOnChange
 				storageKey="vite-ui-theme"
 			>
-				<div className="grid h-svh grid-rows-[auto_1fr]">
-					<Header />
+				{isAuthRoute ? (
 					<Outlet />
-				</div>
-				<Toaster richColors />
+				) : (
+					<div className="grid h-svh grid-rows-[auto_1fr]">
+						<Outlet />
+					</div>
+				)}
+				<Toaster
+					richColors
+					position="top-right"
+					closeButton={true}
+					invert={true}
+					expand
+				/>
 			</ThemeProvider>
 			{import.meta.env.DEV && <TanStackRouterDevtools position="bottom-left" />}
 			{import.meta.env.DEV && (
