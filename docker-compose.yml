@@ -1,0 +1,42 @@
+name: naosu
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: naosu-postgres
+    environment:
+      POSTGRES_DB: naosu_dev
+      POSTGRES_USER: naosu
+      POSTGRES_PASSWORD: naosu
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - naosu_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U naosu -d naosu_dev"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: naosu-redis
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - naosu_redis_data:/data
+    restart: unless-stopped
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: naosu-mailpit
+    ports:
+      - "127.0.0.1:8025:8025"   # Web UI
+      - "127.0.0.1:1025:1025"   # SMTP
+    restart: unless-stopped
+
+volumes:
+  naosu_postgres_data:
+  naosu_redis_data:

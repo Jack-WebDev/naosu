@@ -6,7 +6,6 @@ interface ImportMetaEnv {
 	readonly [key: string]: string | boolean | number | undefined;
 }
 
-// biome-ignore lint/correctness/noUnusedVariables: biome-ignore lint: false positive
 interface ImportMeta {
 	readonly env: ImportMetaEnv;
 }
