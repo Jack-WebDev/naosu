@@ -1,5 +1,6 @@
 import { db } from "@naosu/db";
 import * as schema from "@naosu/db/schema/auth";
+import { getAllowedOrigins } from "@naosu/env/origins";
 import { env } from "@naosu/env/server";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
@@ -10,7 +11,7 @@ export const auth = betterAuth({
 
 		schema: schema,
 	}),
-	trustedOrigins: [env.CORS_ORIGIN],
+	trustedOrigins: getAllowedOrigins(env.CORS_ORIGIN),
 	emailAndPassword: {
 		enabled: true,
 	},

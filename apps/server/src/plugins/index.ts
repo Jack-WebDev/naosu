@@ -6,6 +6,7 @@ import fastifyHelmet from "@fastify/helmet";
 import fastifyRateLimit from "@fastify/rate-limit";
 import { createContext } from "@naosu/api/context";
 import { type AppRouter, appRouter } from "@naosu/api/routers/index";
+import { getAllowedOrigins } from "@naosu/env/origins";
 import { env } from "@naosu/env/server";
 
 import {
@@ -15,15 +16,29 @@ import {
 import type { FastifyInstance, FastifyRequest } from "fastify";
 
 export async function registerPlugins(app: FastifyInstance) {
+	const allowedOrigins = getAllowedOrigins(env.CORS_ORIGIN);
+
 	await app.register(fastifyHelmet, {
 		// CSP can be tightened per-environment once you know your asset origins
 		contentSecurityPolicy: env.NODE_ENV === "production",
 	});
 
 	await app.register(fastifyCors, {
-		origin: env.CORS_ORIGIN,
+		origin(origin, callback) {
+			if (!origin || allowedOrigins.includes(origin)) {
+				callback(null, true);
+				return;
+			}
+
+			callback(new Error("Origin not allowed"), false);
+		},
 		methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-		allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+		allowedHeaders: [
+			"Content-Type",
+			"Authorization",
+			"X-Requested-With",
+			"X-Organization-Id",
+		],
 		credentials: true,
 		maxAge: 86400,
 	});
