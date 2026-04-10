@@ -23,3 +23,20 @@ export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
 		},
 	});
 });
+
+export const workspaceProcedure = protectedProcedure.use(({ ctx, next }) => {
+	if (!ctx.organization || !ctx.membership) {
+		throw new TRPCError({
+			code: "FORBIDDEN",
+			message: "Active organization required",
+		});
+	}
+
+	return next({
+		ctx: {
+			...ctx,
+			organization: ctx.organization,
+			membership: ctx.membership,
+		},
+	});
+});

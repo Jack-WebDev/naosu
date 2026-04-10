@@ -8,6 +8,15 @@ import {
 	uniqueIndex,
 } from "drizzle-orm/pg-core";
 
+import {
+	organization,
+	organizationMember,
+	teamMember,
+	ticket,
+	ticketActivity,
+	ticketMessage,
+} from "./support";
+
 export const user = pgTable("user", {
 	id: text("id").primaryKey(),
 	name: text("name").notNull(),
@@ -114,6 +123,17 @@ export const verification = pgTable(
 export const userRelations = relations(user, ({ many }) => ({
 	sessions: many(session),
 	accounts: many(account),
+	organizationsCreated: many(organization),
+	organizationMemberships: many(organizationMember),
+	teamMemberships: many(teamMember),
+	assignedTickets: many(ticket, { relationName: "assigned_agent" }),
+	createdTickets: many(ticket, { relationName: "ticket_created_by" }),
+	ticketMessagesAuthored: many(ticketMessage, {
+		relationName: "ticket_message_author_user",
+	}),
+	ticketActivitiesAuthored: many(ticketActivity, {
+		relationName: "ticket_activity_actor_user",
+	}),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({

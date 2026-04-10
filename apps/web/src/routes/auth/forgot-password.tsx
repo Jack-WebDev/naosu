@@ -16,7 +16,7 @@ function ForgotPasswordRoute() {
 
 	const form = useForm({
 		defaultValues: { email: "" },
-		onSubmit: async ({ value }) => {
+		onSubmit: async () => {
 			// const { error } = await authClient.resetPassword({
 			// 	email: value.email,
 			// 	redirectTo: `${window.location.origin}/auth/reset-password`,

@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TodosRouteImport } from './routes/todos'
+import { Route as SubmitTicketRouteImport } from './routes/submit-ticket'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -23,6 +24,11 @@ import { Route as AuthForgotPasswordRouteImport } from './routes/auth/forgot-pas
 const TodosRoute = TodosRouteImport.update({
   id: '/todos',
   path: '/todos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubmitTicketRoute = SubmitTicketRouteImport.update({
+  id: '/submit-ticket',
+  path: '/submit-ticket',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
   '/dashboard': typeof DashboardRoute
+  '/submit-ticket': typeof SubmitTicketRoute
   '/todos': typeof TodosRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/login': typeof AuthLoginRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
   '/dashboard': typeof DashboardRoute
+  '/submit-ticket': typeof SubmitTicketRoute
   '/todos': typeof TodosRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/login': typeof AuthLoginRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
   '/dashboard': typeof DashboardRoute
+  '/submit-ticket': typeof SubmitTicketRoute
   '/todos': typeof TodosRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/login': typeof AuthLoginRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/submit-ticket'
     | '/todos'
     | '/auth/forgot-password'
     | '/auth/login'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/submit-ticket'
     | '/todos'
     | '/auth/forgot-password'
     | '/auth/login'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/submit-ticket'
     | '/todos'
     | '/auth/forgot-password'
     | '/auth/login'
@@ -151,6 +163,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   DashboardRoute: typeof DashboardRoute
+  SubmitTicketRoute: typeof SubmitTicketRoute
   TodosRoute: typeof TodosRoute
   LegalTermsRoute: typeof LegalTermsRoute
   SecurityPrivacyRoute: typeof SecurityPrivacyRoute
@@ -163,6 +176,13 @@ declare module '@tanstack/react-router' {
       path: '/todos'
       fullPath: '/todos'
       preLoaderRoute: typeof TodosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/submit-ticket': {
+      id: '/submit-ticket'
+      path: '/submit-ticket'
+      fullPath: '/submit-ticket'
+      preLoaderRoute: typeof SubmitTicketRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -253,6 +273,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   DashboardRoute: DashboardRoute,
+  SubmitTicketRoute: SubmitTicketRoute,
   TodosRoute: TodosRoute,
   LegalTermsRoute: LegalTermsRoute,
   SecurityPrivacyRoute: SecurityPrivacyRoute,
